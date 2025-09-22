@@ -1,5 +1,5 @@
 const string = "MilkBikis";
-//console.log(string.split("".reverse().join(""));
+//console.log(string.split(split("").reverse().join(""));
 const reverse = (str) => {
  const spl = str.split("");   
 const rev = spl.reverse();   
