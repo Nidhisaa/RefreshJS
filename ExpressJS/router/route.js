@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../models/schema");
 const checkRole = require("../Middleware/role");
 
-router.get("/home", checkRole,(req, res) => {
+router.get("/home", checkRole(["admin", "guest"]), (req, res) => {
   res.send("HELLO");
 });
 

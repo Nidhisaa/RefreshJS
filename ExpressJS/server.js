@@ -1,6 +1,10 @@
 const express = require("express");
 const connectDB = require("./DB/DataBase");
-const logTimestamp = require("./Middleware/timeStramp");
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const logTimestamp = require("./Middleware/logTimestamp"); 
+app.use(logTimestamp);
+
 connectDB();
 require("dotenv").config();
 const app = express();

@@ -1,13 +1,11 @@
 const checkRole = (allowedRoles) => {
-
   return (req, res, next) => {
-    const role = req.headers["role"];
-    if (!role) user.roll="guest";
+    const role = req.headers["role"] || "guest"; // default to guest
     if (!allowedRoles.includes(role)) {
       return res.status(403).json({ error: "Access Denied" });
     }
     next();
-
-    };
   };
+};
+
 module.exports = checkRole;

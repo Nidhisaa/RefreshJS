@@ -1,7 +1,7 @@
 function logTimestamp(req, res, next) {
-  const now = Date();
+  const now = new Date();
   console.log(`[${now}] Request to: ${req.method} ${req.url}`);
   next();
-};
+}
 
-module.exports= logTimestamp;
+module.exports = logTimestamp;
