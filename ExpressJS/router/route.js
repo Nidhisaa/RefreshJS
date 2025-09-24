@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/schema");
 import checkRole from "../Middleware/role";
+import logTimestamp from "../Middleware/timeStramp";
 router.get("/home", (req, res) => {
   res.send("HELLO");
 });
