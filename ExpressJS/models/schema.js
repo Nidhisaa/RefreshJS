@@ -14,6 +14,10 @@ const userSchema = new schema({
         type: String,
         required: true,
         enum :["admin","user","guest"]
+    },
+    password: {
+        type: String,
+        required: true,
     }
 });
 module.exports = require('mongoose').model('User', userSchema);
