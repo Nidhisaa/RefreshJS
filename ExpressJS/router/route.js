@@ -10,7 +10,7 @@ router.get("/home/:name",checkRole, (req, res) => {
   res.send(`HELLO ${req.params.name}`)  ;
 });
 
-router.post("/add", checkRole,async (req, res) => {
+router.post("/add", checkRole(["admin","user"]),async (req, res) => {
   try {
     const { name, ID, role, password } = req.body;
     const newUser = new User({ name, ID, role, password });
@@ -21,7 +21,7 @@ router.post("/add", checkRole,async (req, res) => {
   } 
 });
 
-router.get("/users", checkRole,async (req, res) => {
+router.get("/users", checkRole(["admin","user","guest"]),async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -30,7 +30,7 @@ router.get("/users", checkRole,async (req, res) => {
   }
 });
 
-router.delete("/delete/:id",checkRole, async (req, res) => {
+router.delete("/delete/:id",checkRole("admin"), async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ ID: req.params.id });  
     if (!user) {
