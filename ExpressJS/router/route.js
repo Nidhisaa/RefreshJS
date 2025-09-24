@@ -1,17 +1,16 @@
 const router = require("express").Router();
 const User = require("../models/schema");
-import checkRole from "../Middleware/role";
-import logTimestamp from "../Middleware/timeStramp";
-router.get("/home", (req, res) => {
+const checkRole = require("../Middleware/role");
+
+router.get("/home", checkRole,(req, res) => {
   res.send("HELLO");
 });
 
-router.get("/home/:name", (req, res) => {
+router.get("/home/:name",checkRole, (req, res) => {
   res.send(`HELLO ${req.params.name}`)  ;
 });
 
-
-router.post("/add", async (req, res) => {
+router.post("/add", checkRole,async (req, res) => {
   try {
     const { name, ID, role, password } = req.body;
     const newUser = new User({ name, ID, role, password });
@@ -22,7 +21,7 @@ router.post("/add", async (req, res) => {
   } 
 });
 
-router.get("/users", async (req, res) => {
+router.get("/users", checkRole,async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
@@ -31,7 +30,7 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id",checkRole, async (req, res) => {
   try {
     const user = await User.findOneAndDelete({ ID: req.params.id });  
     if (!user) {
