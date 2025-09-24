@@ -10,4 +10,39 @@ router.get("/home/:name", (req, res) => {
 });
 
 
+router.post("/add", async (req, res) => {
+  try {
+    const { name, ID, role, password } = req.body;
+    const newUser = new User({ name, ID, role, password });
+    await newUser.save();
+    res.status(201).send("User added successfully");
+  } catch (error) {
+    res.status(400).send("Error adding user: " + error.message);
+  } 
+});
+
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).send("Error fetching users: " + error.message);
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const user = await User.findOneAndDelete({ ID: req.params.id });  
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    res.status(200).send("User deleted successfully");
+  }
+  catch (error) {
+    res.status(500).send("Error deleting user: " + error.message);
+  }
+});
+
+
+
 module.exports = router;
