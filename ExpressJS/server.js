@@ -4,6 +4,7 @@ const connectDB = require("./DB/DataBase");
 require("dotenv").config();
 connectDB();
 app.use(express.json());
+// express().use(express.json());
 const logTimestamp = require("./Middleware/timeStramp"); 
 const PORT = process.env.PORT;
 app.use(logTimestamp);

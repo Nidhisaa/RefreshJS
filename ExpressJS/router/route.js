@@ -12,8 +12,8 @@ router.get("/home/:name",checkRole, (req, res) => {
 
 router.post("/add", checkRole(["admin","user"]),async (req, res) => {
   try {
-    const { name, ID, role, password } = req.body;
-    const newUser = new User({ name, ID, role, password });
+    const reqinfo = req.body;
+    const newUser = new User(reqinfo);
     await newUser.save();
     res.status(201).send("User added successfully");
   } catch (error) {
