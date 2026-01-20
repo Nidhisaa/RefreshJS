@@ -17,7 +17,7 @@ router.post("/add", checkRole(["admin","user"]),async (req, res) => {
     await newUser.save();
     res.status(201).send("User added successfully");
   } catch (error) {
-    res.status(400).send("Error adding user: " + error.message);
+    res.status(400).send("Error in adding user: " + error.message);
   } 
 });
 
